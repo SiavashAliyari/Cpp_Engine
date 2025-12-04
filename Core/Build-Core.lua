@@ -1,47 +1,45 @@
 project "Core"
-   kind "StaticLib"
-   language "C++"
-   cppdialect "C++20"
-   targetdir "Binaries/%{cfg.buildcfg}"
-   staticruntime "off"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++20"
+    staticruntime "off"
 
-   files { "Source/**.h", "Source/**.cpp" }
+    files { "Source/**.h", "Source/**.cpp" }
 
     includedirs
     {
         "Source",
-        "%{IncludeDir.GLFW}"
+        "../Vendor/GLFW/include"       -- OR "%{IncludeDir.GLFW}"
     }
 
-    libdirs
-    {
-        "%{LibDir.GLFW}"
-    }
+    -- REMOVE libdirs entirely
+    -- REMOVE "glfw3" link
 
     links
     {
-        "glfw3"
+        "GLFW"                         -- <-- Name of the GLFW project you added
     }
-   targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
-   objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
-   filter "system:windows"
-       systemversion "latest"
-       defines { "GLFW_INCLUDE_NONE" }
+    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
+    objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
-   filter "configurations:Debug"
-       defines { "DEBUG" }
-       runtime "Debug"
-       symbols "On"
+    filter "system:windows"
+        systemversion "latest"
+        defines { "GLFW_INCLUDE_NONE" }
 
-   filter "configurations:Release"
-       defines { "RELEASE" }
-       runtime "Release"
-       optimize "On"
-       symbols "On"
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        runtime "Debug"
+        symbols "On"
 
-   filter "configurations:Dist"
-       defines { "DIST" }
-       runtime "Release"
-       optimize "On"
-       symbols "Off"
+    filter "configurations:Release"
+        defines { "RELEASE" }
+        runtime "Release"
+        optimize "On"
+        symbols "On"
+
+    filter "configurations:Dist"
+        defines { "DIST" }
+        runtime "Release"
+        optimize "On"
+        symbols "Off"

@@ -15,6 +15,9 @@ LibDir = {}
 IncludeDir["GLFW"] = "../Vendor/GLFW/include"
 LibDir["GLFW"] = "../Vendor/GLFW/lib"
 
+group "Vendor"
+   include "Vendor/GLFW/Build-GLFW.lua"
+group ""
 
 group "Core"
 	include "Core/Build-Core.lua"

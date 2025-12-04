@@ -1,7 +1,6 @@
 #include "Core.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
-
 namespace Core {
 
 	void PrintHelloWorld()
@@ -10,6 +9,44 @@ namespace Core {
 		std::cout << result << std::endl;
 		std::cout << "Hello World!\n";
 		std::cin.get();
+	}
+    void GLFWtest() {
+        int result = glfwInit();
+    }
+
+	int DoGlfwStuff() {
+        GLFWwindow* window;
+        std::cout << "doging it" << std::endl;
+        /* Initialize the library */
+        if (!glfwInit())
+            return -1;
+
+        /* Create a windowed mode window and its OpenGL context */
+        window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+        if (!window)
+        {
+            glfwTerminate();
+            return -1;
+        }
+
+        /* Make the window's context current */
+        glfwMakeContextCurrent(window);
+
+        /* Loop until the user closes the window */
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            //glClear(GL_COLOR_BUFFER_BIT);
+
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+
+        glfwTerminate();
+        return 0;
 	}
 
 }
