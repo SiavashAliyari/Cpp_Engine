@@ -9,15 +9,17 @@ project "Core"
     includedirs
     {
         "Source",
-        "../Vendor/GLFW/include"       -- OR "%{IncludeDir.GLFW}"
+        "../Vendor/GLFW/include",
+        "../Vendor/GLAD/include"
+
     }
 
-    -- REMOVE libdirs entirely
-    -- REMOVE "glfw3" link
+
 
     links
     {
-        "GLFW"                         -- <-- Name of the GLFW project you added
+        "GLFW", 
+        "GLAD"
     }
 
     targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")

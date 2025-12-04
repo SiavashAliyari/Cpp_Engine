@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdexcept>
 
@@ -17,6 +18,12 @@ namespace Core {
         }
 
         glfwMakeContextCurrent(m_Window);
+
+        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+            glfwDestroyWindow(m_Window);
+            glfwTerminate();
+            throw std::runtime_error("Failed to initialize GLAD!");
+        }
     }
 
     Window::~Window()
