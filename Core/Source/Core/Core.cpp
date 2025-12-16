@@ -1,18 +1,8 @@
 #include "Core.h"
 #include <iostream>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 namespace Core {
-
-	void PrintHelloWorld()
-	{
-		int result =glfwInit();
-		std::cout << result << std::endl;
-		std::cout << "Hello World!\n";
-		std::cin.get();
-	}
-    void GLFWtest() {
-        int result = glfwInit();
-    }
 
 	int DoGlfwStuff() {
         GLFWwindow* window;
@@ -36,7 +26,7 @@ namespace Core {
         while (!glfwWindowShouldClose(window))
         {
             /* Render here */
-            //glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
 
             /* Swap front and back buffers */
             glfwSwapBuffers(window);

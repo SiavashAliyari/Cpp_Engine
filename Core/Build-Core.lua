@@ -19,7 +19,8 @@ project "Core"
     links
     {
         "GLFW", 
-        "GLAD"
+        "GLAD",
+        "opengl32"
     }
 
     targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")

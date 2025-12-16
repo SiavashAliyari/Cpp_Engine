@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdexcept>
+#include <iostream>
+
 
 namespace Core {
 
@@ -24,6 +26,7 @@ namespace Core {
             glfwTerminate();
             throw std::runtime_error("Failed to initialize GLAD!");
         }
+        std::cout<< "OpenGl version is: " << glGetString(GL_VERSION) << std::endl;
     }
 
     Window::~Window()
@@ -40,6 +43,10 @@ namespace Core {
     bool Window::ShouldClose() const
     {
         return glfwWindowShouldClose(m_Window);
+    }
+    void Window::SwapBuffers() {
+        glfwSwapBuffers(m_Window);
+
     }
 
 }
