@@ -2,11 +2,13 @@
 #include <Core/Window.h>
 #include <iostream>
 #include "Core/Renderer.h"
+#include <filesystem>
 
 int main()
 {
     try
     {
+        std::cout << std::filesystem::current_path() << std::endl;
         Core::Window window(1280, 720, "GLFW Test");
         Core::Renderer renderer;
         renderer.Init();
