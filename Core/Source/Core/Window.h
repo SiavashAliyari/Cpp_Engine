@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include "Event/Event.h"
 
 struct GLFWwindow;
 namespace Core {
@@ -10,7 +12,17 @@ namespace Core {
 		void PollEvents();
 		bool ShouldClose() const;
 		GLFWwindow* GetNativeWindow() const { return m_Window; }
+
+		using EventCallbackFn = std::function<void(Event&)>;
+		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 	private:
 		GLFWwindow* m_Window;
+
+		void InitCallbacks();
+		struct WindowData {
+			int Width = 0, Height = 0;
+			EventCallbackFn EventCallback;
+		};
+		WindowData m_Data;
 	};
 }
