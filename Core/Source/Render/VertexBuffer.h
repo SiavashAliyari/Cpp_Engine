@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Core {
-	class VertexBuffer {
+	class  VertexBuffer {
 	public:
 		VertexBuffer(const void* data,unsigned int size);
 		~VertexBuffer();

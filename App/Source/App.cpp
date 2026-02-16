@@ -4,6 +4,8 @@
 #include "Core/Renderer.h"
 #include "Render/VertexBuffer.h"
 #include "Render/IndexBuffer.h"
+#include "Render/VertexArray.h"
+#include "Render/VertexBufferLayout.h"
 
 #include <filesystem>
 
@@ -15,7 +17,6 @@ int main()
         Core::Window window(1280, 720, "2d Engine");
         Core::Renderer renderer;
         renderer.Init();
-     
         float vertices[] = {
         -0.5f, -0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
@@ -26,13 +27,18 @@ int main()
             0,1,2,
             2,3,0
         };
-
+  
+        Core::VertexArray vao;
         Core::VertexBuffer vbo(vertices, sizeof(float) * 12);
+        Core::VertexBufferLayout layout;
+        layout.Push<float>(3);
+        vao.AddBuffer(vbo, layout);
         Core::IndexBuffer ibo(indecies, 6);
-
-
+        
+        int count = 0;
         while (!window.ShouldClose())
         {
+            vao.Bind();
             renderer.Clear();
             renderer.Draw();
 
