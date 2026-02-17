@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include "Render/VertexArray.h"
+#include "Render/IndexBuffer.h"
+#include "Shader/Shader.h"
 
 namespace Core {
 	class Renderer {
@@ -7,6 +10,6 @@ namespace Core {
 		
 		void Init();
 		void Clear();
-		void Draw();
+		void Draw(const VertexArray& va,const IndexBuffer& ib,const Shader& shader)const;
 	};
 }

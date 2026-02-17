@@ -6,7 +6,7 @@
 #include "Render/IndexBuffer.h"
 #include "Render/VertexArray.h"
 #include "Render/VertexBufferLayout.h"
-
+#include "Shader/Shader.h"
 #include <filesystem>
 
 int main()
@@ -17,6 +17,7 @@ int main()
         Core::Window window(1280, 720, "2d Engine");
         Core::Renderer renderer;
         renderer.Init();
+
         float vertices[] = {
         -0.5f, -0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
@@ -27,7 +28,11 @@ int main()
             0,1,2,
             2,3,0
         };
-  
+        
+        Core::Shader shader("../Core/res/Shaders/Basic.shader");
+        shader.Bind();
+        shader.SetUniform4f("u_Color", 0.1f, 1.1f, 1.2f, 1.0f);
+
         Core::VertexArray vao;
         Core::VertexBuffer vbo(vertices, sizeof(float) * 12);
         Core::VertexBufferLayout layout;
@@ -35,12 +40,10 @@ int main()
         vao.AddBuffer(vbo, layout);
         Core::IndexBuffer ibo(indecies, 6);
         
-        int count = 0;
         while (!window.ShouldClose())
         {
-            vao.Bind();
             renderer.Clear();
-            renderer.Draw();
+            renderer.Draw(vao,ibo,shader);
 
             window.PollEvents();
             window.SwapBuffers();

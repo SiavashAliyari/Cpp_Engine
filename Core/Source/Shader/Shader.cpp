@@ -6,7 +6,34 @@
 
 
 namespace Core {
-	Shader::ShaderProgramSources Shader::ParseShader(const std::string& filepath) {
+	Shader::Shader(const std::string& filepath)
+		:m_filepath(filepath),m_RendererID(0)
+	{
+		m_sources= Shader::ParseShader(filepath);
+		m_RendererID = Shader::CreateShader(m_sources.VertexSource, m_sources.FragmentSource);
+		glUseProgram(m_RendererID);
+
+	}
+	Shader::~Shader() {
+		DeleteShader(m_RendererID);
+	}
+	unsigned int Shader::GetUniformLocation(const std::string& name) {
+		if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+			return m_UniformLocationCache[name];
+		int location = glGetUniformLocation(m_RendererID,name.c_str());
+		m_UniformLocationCache[name] = location; 
+		return location; 
+	}
+	void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3) {
+		glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+	}
+	void Shader::Bind() const {
+		glUseProgram(m_RendererID);
+	}
+	void Shader::UnBind() const {
+		glUseProgram(0);
+	}
+	ShaderProgramSources Shader::ParseShader(const std::string& filepath) {
 		std::ifstream stream(filepath);
 		if (!stream.is_open()) {
 			std::cerr << "FAILED TO OPEN SHADER FILE: " << filepath << std::endl;
@@ -52,7 +79,6 @@ namespace Core {
 		glGetShaderiv(id, GL_COMPILE_STATUS, &result);
 		if (result == GL_FALSE) {
 			//Shader did not compile 
-
 			int length;
 			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 

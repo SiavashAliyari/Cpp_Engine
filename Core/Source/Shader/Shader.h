@@ -1,19 +1,35 @@
 #pragma once
 #include <string>
-
+#include <unordered_map>
 namespace Core{
+	struct ShaderProgramSources {
+		std::string VertexSource;
+		std::string FragmentSource;
+	};
 	class Shader {
-	public:
-		struct ShaderProgramSources {
-			std::string VertexSource;
-			std::string FragmentSource;
-		};
-		static ShaderProgramSources ParseShader(const std::string& filepath);
-		static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-		static void DeleteShader(unsigned int& shaderProgram); 
 	private:
-		static unsigned int CompileShader(unsigned int type, const std::string source);
-		unsigned int m_ShaderProgram;
+		unsigned int m_RendererID;
+		std::string m_filepath;
+		ShaderProgramSources m_sources;
+		std::unordered_map <std::string, int> m_UniformLocationCache;
+
+	public:
+		Shader(const std::string& filepath);
+		~Shader();
+		void Bind() const;
+		void UnBind() const;
+
+
+		ShaderProgramSources ParseShader(const std::string& filepath);
+		unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
+		void DeleteShader(unsigned int& shaderProgram); 
+
+		//uniforms
+		void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
+	private:
+		unsigned int GetUniformLocation(const std::string& name);
+		unsigned int CompileShader(unsigned int type, const std::string source);
+
 	};
 
 }
