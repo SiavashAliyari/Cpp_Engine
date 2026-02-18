@@ -30,6 +30,9 @@ namespace Core {
 	void Shader::SetUniform1i(const std::string& name, int i) {
 		glUniform1i(GetUniformLocation(name), i);
 	}
+	void Shader::SetUniformMat4f(const std::string& name, const glm::mat4 matrix) {
+		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
+	}
 	void Shader::Bind() const {
 		glUseProgram(m_RendererID);
 	}

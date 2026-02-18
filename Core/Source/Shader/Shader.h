@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <glm/glm.hpp>
+
 namespace Core{
 	struct ShaderProgramSources {
 		std::string VertexSource;
@@ -27,6 +29,8 @@ namespace Core{
 		//uniforms
 		void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
 		void SetUniform1i(const std::string& name, int i);
+		void SetUniformMat4f(const std::string& name, const glm::mat4 matrix);
+
 	private:
 		unsigned int GetUniformLocation(const std::string& name);
 		unsigned int CompileShader(unsigned int type, const std::string source);

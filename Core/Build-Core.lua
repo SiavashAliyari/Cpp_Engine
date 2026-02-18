@@ -10,8 +10,9 @@ project "Core"
     {
         "Source",
         "../Vendor/GLFW/include",
-        "../Vendor/GLAD/include"
-
+        "../Vendor/GLAD/include",
+        "../Vendor/stb_image",
+          "../Vendor/glm"
     }
 
 

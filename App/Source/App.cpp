@@ -9,12 +9,15 @@
 #include "Shader/Shader.h"
 #include <filesystem>
 #include "Texture/Texture.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+
 
 int main()
 {
     try
     {
-
         std::cout << std::filesystem::current_path() << std::endl;
         Core::Window window(1280, 720, "2d Engine");
         Core::Renderer renderer;
@@ -40,7 +43,9 @@ int main()
         Core::Texture texture("../Core/res/Images/limoo.png");
         texture.Bind();
         shader.SetUniform1i("u_Texture", 0);
-
+        
+        glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f,-1.0f,1.0f);
+        shader.SetUniformMat4f("u_MVP", proj);
 
         Core::VertexArray vao;
         Core::VertexBuffer vbo(vertices, sizeof(float) * 5*4);
