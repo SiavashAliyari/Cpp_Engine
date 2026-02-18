@@ -8,6 +8,9 @@
 
 namespace Core {
 	void Renderer::Init() {
+		//blending
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
 		std::cout << "Renderer initialized.\n";
 	}
 	void Renderer::Clear() {
