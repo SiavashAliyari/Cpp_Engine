@@ -27,6 +27,9 @@ namespace Core {
 	void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3) {
 		glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
 	}
+	void Shader::SetUniform1i(const std::string& name, int i) {
+		glUniform1i(GetUniformLocation(name), i);
+	}
 	void Shader::Bind() const {
 		glUseProgram(m_RendererID);
 	}

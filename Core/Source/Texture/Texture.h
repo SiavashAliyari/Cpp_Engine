@@ -1,0 +1,23 @@
+#pragma once
+#include "Core/Renderer.h"
+
+namespace Core {
+	class Texture {
+	private: 
+		unsigned int m_RendererID;
+		std::string m_Filepath;
+		unsigned char* m_LocalBuffer;	
+		int m_width, m_Height, m_BPP;
+	public:
+		Texture(const std::string& path);
+		~Texture();
+
+		void Bind(unsigned int slot=0)const;
+		void UnBind()const;
+
+		inline int GetWidth()const { return m_width; }
+		inline int GetHeight()const { return m_Height; }
+
+
+	};
+}
