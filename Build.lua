@@ -18,6 +18,7 @@ LibDir["GLFW"] = "../Vendor/GLFW/lib"
 group "Vendor"
    include "Vendor/GLFW/Build-GLFW.lua"
    include "Vendor/GLAD/Build-GLAD.lua"
+   include "Vendor/imgui/Build-ImGui.lua"
 group ""
 
 group "Core"

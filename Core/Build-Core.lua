@@ -12,7 +12,9 @@ project "Core"
         "../Vendor/GLFW/include",
         "../Vendor/GLAD/include",
         "../Vendor/stb_image",
-          "../Vendor/glm"
+        "../Vendor/glm",
+        "../Vendor/imgui",
+        "../Vendor/imgui/backends"
     }
 
 
@@ -21,7 +23,8 @@ project "Core"
     {
         "GLFW", 
         "GLAD",
-        "opengl32"
+        "opengl32",
+        "ImGui"
     }
 
     targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
