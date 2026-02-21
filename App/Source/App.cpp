@@ -23,12 +23,12 @@ int main()
         Core::Renderer renderer;
         renderer.Init();
         
-        //3d pose and u,v
+        //xyz pose and u,v
         float vertices[] = {
-        -0.5f, -0.5f, 0.0f,0.0f,0.0f,
-         0.5f, -0.5f, 0.0f,1.0f,0.0f,
-         0.5f,  0.5f, 0.0f,1.0f,1.0f,
-        -0.5f,  0.5f, 0.0f,0.0f,1.0f
+         0.0f,    0.0f, 0.0f,0.0f,0.0f,
+         100.0f,  0.0f, 0.0f,1.0f,0.0f,
+         100.0f,  100.0f, 0.0f,1.0f,1.0f,
+         0.0f,  100.0f, 0.0f,0.0f,1.0f
         };
         unsigned int indecies[] = {
             0,1,2,
@@ -44,8 +44,12 @@ int main()
         texture.Bind();
         shader.SetUniform1i("u_Texture", 0);
         
-        glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f,-1.0f,1.0f);
-        shader.SetUniformMat4f("u_MVP", proj);
+        glm::mat4 proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f,-1.0f,1.0f);
+        //moving camera to the left
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(100, 0, 0));
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
+        glm::mat4 mvp = proj * view *model;
+        shader.SetUniformMat4f("u_MVP", mvp);
 
         Core::VertexArray vao;
         Core::VertexBuffer vbo(vertices, sizeof(float) * 5*4);
