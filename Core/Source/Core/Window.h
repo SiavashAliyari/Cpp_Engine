@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include "Event/Event.h"
+#include "glm/glm.hpp"
 
 struct GLFWwindow;
 namespace Core {
@@ -11,6 +12,8 @@ namespace Core {
 		void SwapBuffers();
 		void PollEvents();
 		bool ShouldClose() const;
+		void Destroy();
+		glm::vec2 GetFramebufferSize();
 		GLFWwindow* GetNativeWindow() const { return m_Window; }
 
 		using EventCallbackFn = std::function<void(Event&)>;

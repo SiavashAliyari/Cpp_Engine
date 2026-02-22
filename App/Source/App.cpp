@@ -11,15 +11,43 @@
 #include "Texture/Texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <Event/ApplicationEvent.h>
+#include "Core/Application.h"
 
+void OnEvent(Core::Event& e)
+{
+    Core::EventDispatcher dispatcher(e);
 
+    dispatcher.Dispatch<Core::WindowResizeEvent>([](Core::WindowResizeEvent& ev)
+    {
+        int m_Width = ev.GetWidth();
+        int m_Height = ev.GetHeight();
+        std::cout << m_Width << std::endl;
+        return true;
+    });
+}
 
 int main()
 {
     try
     {
         std::cout << std::filesystem::current_path() << std::endl;
+        Core::ApplicationSpecification specification;
+        specification.Name = "3D Engine";
+        specification.width = 1280;
+        specification.height= 720;
+        Core::Application application(specification);
+
+        application.Run();
+
+        return 0;
         Core::Window window(1280, 720, "2d Engine");
+
+        window.SetEventCallback([](Core::Event& e)
+        {
+            OnEvent(e);
+        });
+
         Core::Renderer renderer;
         renderer.Init();
         

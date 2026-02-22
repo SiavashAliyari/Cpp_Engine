@@ -47,6 +47,17 @@ namespace Core {
         glfwDestroyWindow(m_Window);
         glfwTerminate();
     }
+    glm::vec2 Window::GetFramebufferSize() {
+        int width, height;
+        glfwGetFramebufferSize(m_Window, &width, &height);
+        return { width,height };
+
+    }
+    void Window::Destroy() {
+        if (m_Window)
+            glfwDestroyWindow(m_Window);
+        m_Window = nullptr;
+    }
 
     void Window::PollEvents()
     {
