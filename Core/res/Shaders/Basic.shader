@@ -26,5 +26,5 @@ in vec2 v_uv;
 void main()
 {
     vec4 texColor=texture(u_Texture,v_uv);
-    FragColor = texColor*u_Color;
+    FragColor = u_Color*texColor;
 }

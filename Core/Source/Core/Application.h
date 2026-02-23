@@ -3,6 +3,7 @@
 #include <memory>
 #include "Window.h"
 #include "glm/glm.hpp"
+#include "Layer.h"
 
 namespace Core {
 
@@ -19,10 +20,17 @@ namespace Core {
 		glm::vec2 GetFramebufferSize()const;
 		static Application& Get();
 		static float GetTime();
+		template<typename TLayer>
+		requires(std::is_base_of_v<Layer, TLayer>)
+		void PushLayer() {
+			m_LayerStack.push_back(std::make_unique<TLayer>());
+		}
 	private:
 		ApplicationSpecification m_Specification;
 		bool m_Running = false;
 		std::shared_ptr<Window> m_Window;
+
+		std::vector<std::unique_ptr<Layer>> m_LayerStack;
 
 	};
 }

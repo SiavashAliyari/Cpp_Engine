@@ -26,6 +26,7 @@ namespace Core {
 
 	void Application::Run() {
 		m_Running = true;
+		float lastTime = GetTime();
 		//application loop
 		while (m_Running) {
 			glfwPollEvents();
@@ -33,8 +34,18 @@ namespace Core {
 				Stop();
 				break;
 			}
-			//main layer update goes here   
+			//main layer update goes here
+			float currentTime = GetTime();
+			float timeStamp = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
+			lastTime = currentTime;
+
+			for (const auto& layer : m_LayerStack)
+				layer->OnUpdate(timeStamp);
+			for (const auto& layer : m_LayerStack)
+				layer->OnRender();
+			
 			m_Window->SwapBuffers();
+
 		}
 	}
 	void Application::Stop() {
