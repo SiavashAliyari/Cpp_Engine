@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "glm/glm.hpp"
 #include "Layer.h"
+#include "ImGui/ImGuiLayer.h"
 
 namespace Core {
 
@@ -31,6 +32,7 @@ namespace Core {
 		std::shared_ptr<Window> m_Window;
 
 		std::vector<std::unique_ptr<Layer>> m_LayerStack;
+		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 
 	};
 }

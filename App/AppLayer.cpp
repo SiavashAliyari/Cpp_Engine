@@ -14,6 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Event/ApplicationEvent.h>
 #include "Core/Application.h"
+#include "ImGui/ImGuiSlider.h"
 
 Applayer::Applayer()
 	: m_Shader("../Core/res/Shaders/Basic.shader")
@@ -72,9 +73,11 @@ void Applayer::OnRender()
 	if (m_FirstRender) {
 		m_FirstRender = false;
 		std::cout << "[Applayer] OnRender" << std::endl;
-
 	}
 
 	m_Renderer.Clear();
+	glm::vec3 dog{ 200.0f, 200.0f, 0.0f };
+	Core::ImGuiSlider::Slider(dog);
+
 	m_Renderer.Draw(m_Vao, *m_Ibo, m_Shader);
 }

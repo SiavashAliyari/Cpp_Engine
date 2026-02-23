@@ -2,6 +2,7 @@
 #include "GLFW/glfw3.h"
 #include <iostream>
 #include <glm/glm.hpp>
+#include "ImGui/ImGuiLayer.h"
 namespace Core {
 	//singleton
 	static Application* s_Application = nullptr;
@@ -16,6 +17,7 @@ namespace Core {
 		s_Application = this;
 		glfwSetErrorCallback(GLFWErrorCallback);
 		m_Window = std::make_shared<Window>(specification.width, specification.height, m_Specification.Name.c_str());
+		m_ImGuiLayer = std::make_unique<Core::ImGuiLayer>(*m_Window);
 	}
 	Application::~Application() {
 		//destroy the window
@@ -27,6 +29,7 @@ namespace Core {
 	void Application::Run() {
 		m_Running = true;
 		float lastTime = GetTime();
+
 		//application loop
 		while (m_Running) {
 			glfwPollEvents();
@@ -38,12 +41,14 @@ namespace Core {
 			float currentTime = GetTime();
 			float timeStamp = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
 			lastTime = currentTime;
+			m_ImGuiLayer->Begin();
 
 			for (const auto& layer : m_LayerStack)
 				layer->OnUpdate(timeStamp);
 			for (const auto& layer : m_LayerStack)
 				layer->OnRender();
-			
+
+			m_ImGuiLayer->End();
 			m_Window->SwapBuffers();
 
 		}
