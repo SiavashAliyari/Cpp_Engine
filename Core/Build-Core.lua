@@ -14,14 +14,19 @@ project "Core"
         "../Vendor/stb_image",
         "../Vendor/glm",
         "../Vendor/imgui",
-        "../Vendor/imgui/backends"
+        "../Vendor/imgui/backends",
+        "%{IncludeDir.assimp_build}",
+        "%{IncludeDir.assimp}"
     }
 
-
+    libdirs
+    {
+        "%{LibDir.assimp}"
+    }
 
     links
     {
-        "GLFW", 
+        "GLFW",
         "GLAD",
         "opengl32",
         "ImGui"
@@ -38,15 +43,20 @@ project "Core"
         defines { "DEBUG" }
         runtime "Debug"
         symbols "On"
+        links { "assimp-vc143-mtd" }
 
     filter "configurations:Release"
         defines { "RELEASE" }
         runtime "Release"
         optimize "On"
         symbols "On"
+        links { "assimp-vc143-mt" }
 
     filter "configurations:Dist"
         defines { "DIST" }
         runtime "Release"
         optimize "On"
         symbols "Off"
+        links { "assimp-vc143-mt" }
+
+    filter {}

@@ -6,6 +6,7 @@
 #include "Shader/Shader.h"
 #include <memory>
 #include "Texture/Texture.h"
+#include "glm/glm.hpp"
 
 
 class Applayer : public Core::Layer {
@@ -22,5 +23,6 @@ private:
 	std::unique_ptr<Core::VertexBuffer> m_Vbo;
 	std::unique_ptr<Core::IndexBuffer> m_Ibo;
 	Core::Texture m_Texture;
+	glm::vec3 m_Position{ 1.0f,1.0f,1.0f };
 	bool m_FirstRender = true;
 };

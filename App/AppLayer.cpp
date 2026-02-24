@@ -43,12 +43,7 @@ Applayer::Applayer()
 	m_Texture.Bind();
 	m_Shader.SetUniform1i("u_Texture", 0);
 
-	glm::mat4 proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f);
-	//moving camera to the left
-	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(100, 0, 0));
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
-	glm::mat4 mvp = proj * view * model;
-	m_Shader.SetUniformMat4f("u_MVP", mvp);
+
 
 	m_Vbo=std::make_unique<Core::VertexBuffer>(vertices, sizeof(float) * 5 * 4);
 	Core::VertexBufferLayout layout;
@@ -76,8 +71,16 @@ void Applayer::OnRender()
 	}
 
 	m_Renderer.Clear();
-	glm::vec3 dog{ 200.0f, 200.0f, 0.0f };
-	Core::ImGuiSlider::Slider(dog);
+	
+	Core::ImGuiSlider::Slider(m_Position);
+
+
+	//moving camera to the left
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(100, 0, 0));
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), m_Position);
+	glm::mat4 proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 1.0f);
+	glm::mat4 mvp = proj * view * model;
+	m_Shader.SetUniformMat4f("u_MVP", mvp);
 
 	m_Renderer.Draw(m_Vao, *m_Ibo, m_Shader);
 }
