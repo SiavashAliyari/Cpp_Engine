@@ -6,6 +6,7 @@
 Core::Texture::Texture(const std::string& path)
 	: m_RendererID(0), m_Filepath(path), m_LocalBuffer(nullptr), m_width(0), m_Height(0), m_BPP(0)
 {
+	std::cout << "[Core::Texture] ctor: " << path << "\n";
 	stbi_set_flip_vertically_on_load(1);
 	m_LocalBuffer = stbi_load(path.c_str(), &m_width, &m_Height, &m_BPP,4);
 

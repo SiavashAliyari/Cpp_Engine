@@ -7,11 +7,6 @@ namespace Core {
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-
-		//been moved to vertex array
-		// vertex attrib
-	/*	glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);*/
 	}
 	VertexBuffer::~VertexBuffer() {
 		glDeleteBuffers(1, &m_RendererID);

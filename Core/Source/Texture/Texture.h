@@ -14,6 +14,7 @@ namespace Core {
 
 		void Bind(unsigned int slot=0)const;
 		void UnBind()const;
+		unsigned int GetID() const { return m_RendererID; }
 
 		inline int GetWidth()const { return m_width; }
 		inline int GetHeight()const { return m_Height; }

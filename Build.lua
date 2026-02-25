@@ -17,6 +17,7 @@ LibDir["GLFW"] = "../Vendor/GLFW/lib"
 IncludeDir["assimp"] = "../Vendor/assimp/include"
 LibDir["assimp"] = "../Vendor/assimp/build/lib/%{cfg.buildcfg}"
 IncludeDir["assimp_build"] = "../Vendor/assimp/build/include"
+LibDir["assimp_zlib"] = "../Vendor/assimp/build/contrib/zlib/%{cfg.buildcfg}"
 
 group "Vendor"
    include "Vendor/GLFW/Build-GLFW.lua"

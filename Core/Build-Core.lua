@@ -21,7 +21,9 @@ project "Core"
 
     libdirs
     {
-        "%{LibDir.assimp}"
+        "%{LibDir.assimp}",
+        "%{LibDir.assimp}",
+        "%{LibDir.assimp_zlib}"
     }
 
     links
@@ -43,20 +45,20 @@ project "Core"
         defines { "DEBUG" }
         runtime "Debug"
         symbols "On"
-        links { "assimp-vc143-mtd" }
+          links { "assimp-vc143-mtd", "zlibstaticd" }
 
     filter "configurations:Release"
         defines { "RELEASE" }
         runtime "Release"
         optimize "On"
         symbols "On"
-        links { "assimp-vc143-mt" }
+        links { "assimp-vc143-mt", "zlibstatic" }
 
     filter "configurations:Dist"
         defines { "DIST" }
         runtime "Release"
         optimize "On"
         symbols "Off"
-        links { "assimp-vc143-mt" }
+        links { "assimp-vc143-mt", "zlibstatic" }
 
     filter {}

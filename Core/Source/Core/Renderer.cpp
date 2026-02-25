@@ -10,8 +10,8 @@
 namespace Core {
 	void Renderer::Init() {
 		//blending
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		std::cout << "Renderer initialized.\n";
 	}
 	void Renderer::Clear() {

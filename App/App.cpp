@@ -14,7 +14,9 @@
 #include <Event/ApplicationEvent.h>
 #include "Core/Application.h"
 #include "AppLayer.h"
+#include "ModelLayer.h"
 #include "ImGui/ImGuiLayer.h"
+
 //void OnEvent(Core::Event& e)
 //{
 //    Core::EventDispatcher dispatcher(e);
@@ -39,7 +41,8 @@ int main()
         specification.width = 1280;
         specification.height= 720;
         Core::Application application(specification);
-        application.PushLayer<Applayer>();
+        //application.PushLayer<Applayer>();
+        application.PushLayer<ModelLayer>();
         application.Run();
     }
     catch (const std::exception& e)

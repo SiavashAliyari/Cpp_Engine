@@ -1,0 +1,11 @@
+Model Information:
+* title:	berserk Griffith's Helmet 3D
+* source:	https://sketchfab.com/3d-models/berserk-griffiths-helmet-3d-9b5db2689a5b415b9f4a51f2a818ec0d
+* author:	JonnyMANSON (https://sketchfab.com/JonnyMANSON)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "berserk Griffith's Helmet 3D" (https://sketchfab.com/3d-models/berserk-griffiths-helmet-3d-9b5db2689a5b415b9f4a51f2a818ec0d) by JonnyMANSON (https://sketchfab.com/JonnyMANSON) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
