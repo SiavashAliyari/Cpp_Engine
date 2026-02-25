@@ -5,11 +5,14 @@
 #include "ImGui/ImGuiSlider.h"
 
 ModelLayer::ModelLayer()
-	:m_Shader("../Core/res/Shaders/Unlit.shader")
+	:m_Shader("../Core/res/Shaders/Unlit.shader"),m_Model("../Core/res/Models/Helmet/scene.gltf")
 {
 	m_Renderer = Core::Renderer();
 	m_Renderer.Init();
 
+    m_Model.LoadModel();
+    
+     
 	m_Shader.Bind();
 	m_Shader.SetUniform4f("u_Color", 0.1f, 1.1f, 1.2f, 1.0f);
 
@@ -35,8 +38,9 @@ void ModelLayer::OnRender() {
 
     glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 1000.0f);
     glm::mat4 mvp = proj * view * model;
-
+    
     m_Shader.Bind();                         
     m_Shader.SetUniformMat4f("u_MVP", mvp);
+    m_Model.Draw(m_Shader);
 
 }
