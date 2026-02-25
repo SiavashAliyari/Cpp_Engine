@@ -9,6 +9,7 @@
 
 namespace Core {
 	void Renderer::Init() {
+		glEnable(GL_DEPTH_TEST);
 		//blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -16,7 +17,7 @@ namespace Core {
 	}
 	void Renderer::Clear() {
 		glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const {
 		//glDrawArrays(GL_TRIANGLES, 0, 3);

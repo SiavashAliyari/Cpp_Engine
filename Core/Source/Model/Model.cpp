@@ -1,11 +1,16 @@
 #include "Model.h"
 #include "Mesh.h"
+#include <glad/glad.h>
+
 
 #include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 namespace Core {
 	Model::Model(const char* path)
@@ -84,18 +89,81 @@ namespace Core {
 			for (unsigned int j = 0; j < face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
-		// process material
-		/*if (mesh->mMaterialIndex >= 0)
+
+		if (mesh->mMaterialIndex >= 0)
 		{
 			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-			std::vector<MeshTexture> diffuseMaps = loadMaterialTextures(material,
+			std::vector<MeshTexture> diffuseMaps = LoadMaterialTextures(material,
 				aiTextureType_DIFFUSE, "texture_diffuse");
 			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-			std::vector<MeshTexture> specularMaps = loadMaterialTextures(material,
+			std::vector<MeshTexture> specularMaps = LoadMaterialTextures(material,
 				aiTextureType_SPECULAR, "texture_specular");
 			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-		}*/
+		}
 
 		return Mesh(vertices, indices, textures);
+	}
+
+
+
+	// Loads a texture from file. `directory` is your model folder (e.g. "res/models/backpack")
+	static unsigned int TextureFromFile(const char* path, const std::string& directory)
+	{
+		std::string filename = std::string(path);
+
+		// If Assimp gives a relative path, prepend the model directory
+		// (this simple check handles most common cases)
+		if (filename.find(':') == std::string::npos && filename.rfind("//", 0) != 0 && filename.rfind("\\\\", 0) != 0)
+			filename = directory + "/" + filename;
+
+		unsigned int textureID = 0;
+		glGenTextures(1, &textureID);
+
+		int width = 0, height = 0, nrChannels = 0;
+
+		unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+		if (!data)
+		{
+			std::cout << "TextureFromFile failed to load: " << filename
+				<< " | stb error: " << stbi_failure_reason() << std::endl;
+			glDeleteTextures(1, &textureID);
+			return 0;
+		}
+
+		GLenum format = GL_RGB;
+		if (nrChannels == 1) format = GL_RED;
+		else if (nrChannels == 3) format = GL_RGB;
+		else if (nrChannels == 4) format = GL_RGBA;
+
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		stbi_image_free(data);
+		return textureID;
+	}
+
+	std::vector<MeshTexture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+	{
+		std::vector<MeshTexture> textures;
+		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+		{
+			aiString str;
+			mat->GetTexture(type, i, &str);
+			MeshTexture texture;
+			texture.id = TextureFromFile(str.C_Str(), directory);
+			texture.type = typeName;
+			texture.path = str.C_Str();
+			textures.push_back(texture);
+		}
+		return textures;
 	}
 }
