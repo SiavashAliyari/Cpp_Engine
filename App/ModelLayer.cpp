@@ -10,10 +10,13 @@ ModelLayer::ModelLayer()
 	m_Renderer = Core::Renderer();
 	m_Renderer.Init();
 
+
+    m_Model.LoadModel();
     m_Shader.Init();
     m_Shader.Bind();
     m_Shader.SetUniform4f("u_Color", 0.1f, 1.1f, 1.2f, 1.0f);
-    m_Model.LoadModel();
+    m_Shader.UnBind();
+
 
 }
 ModelLayer::~ModelLayer() {
@@ -40,5 +43,6 @@ void ModelLayer::OnRender() {
     m_Shader.Bind();                         
     m_Shader.SetUniformMat4f("u_MVP", mvp);
     m_Model.Draw(m_Shader);
+    m_Shader.UnBind();
 
 }

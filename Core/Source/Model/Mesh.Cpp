@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include <glad/glad.h>
+#include <iostream>
 
 namespace Core {
 
@@ -51,7 +52,7 @@ namespace Core {
             else if (name == "texture_specular")
                 number = std::to_string(specularNr++);
 
-            shader.SetUniform1i(("material." + name + number).c_str(), i);
+            shader.SetUniform1i((name + number).c_str(), i);
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
         }
         glActiveTexture(GL_TEXTURE0);
