@@ -17,6 +17,8 @@
 //  [X] Renderer: Large meshes support (64k+ vertices) even with 16-bit indices (ImGuiBackendFlags_RendererHasVtxOffset).
 //  [X] Renderer: Expose selected render state for draw callbacks to use. Access in '(ImGui_ImplXXXX_RenderState*)GetPlatformIO().Renderer_RenderState'.
 //  [X] Renderer: Texture updates support for dynamic font system (ImGuiBackendFlags_RendererHasTextures).
+// Missing features or Issues:
+//  [ ] Renderer: Multi-viewport support (multiple windows), useful for desktop.
 
 // You can use unmodified imgui_impl_* files in your project. See examples/ folder for examples of using this.
 // Prefer including the entire imgui/ repository into your project (either as a copy or as a submodule), and only build the backends you need.
@@ -35,7 +37,7 @@
 #include <emscripten/version.h>
 
 #ifdef __EMSCRIPTEN_MAJOR__
-#if (__EMSCRIPTEN_MAJOR__ >= 4) && (__EMSCRIPTEN_MINOR__ >= 0) && (__EMSCRIPTEN_TINY__ >= 10)
+#if (__EMSCRIPTEN_MAJOR__ >= 5) || ((__EMSCRIPTEN_MAJOR__ >= 4) && (__EMSCRIPTEN_MINOR__ >= 0) && (__EMSCRIPTEN_TINY__ >= 10))
 #define IMGUI_IMPL_WEBGPU_BACKEND_DAWN
 #else
 #define IMGUI_IMPL_WEBGPU_BACKEND_WGPU
