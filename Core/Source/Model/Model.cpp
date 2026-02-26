@@ -2,14 +2,11 @@
 #include "Mesh.h"
 #include <glad/glad.h>
 
-
 #include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 namespace Core {
@@ -32,7 +29,7 @@ namespace Core {
 			std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 			return;
 		}
-		directory = m_path.substr(0, m_path.find_last_of('/'));
+		m_Directory = m_path.substr(0, m_path.find_last_of('/'));
 
 		processNode(scene->mRootNode, scene);
 	}
@@ -106,7 +103,7 @@ namespace Core {
 
 
 
-	// Loads a texture from file. `directory` is your model folder (e.g. "res/models/backpack")
+	
 	static unsigned int TextureFromFile(const char* path, const std::string& directory)
 	{
 		std::string filename = std::string(path);
@@ -158,12 +155,31 @@ namespace Core {
 		{
 			aiString str;
 			mat->GetTexture(type, i, &str);
-			MeshTexture texture;
-			texture.id = TextureFromFile(str.C_Str(), directory);
-			texture.type = typeName;
-			texture.path = str.C_Str();
-			textures.push_back(texture);
+			bool skip = false;
+			for (unsigned int j = 0; j < textures_loaded.size(); j++)
+			{
+				if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
+				{
+					textures.push_back(textures_loaded[j]);
+					skip = true;
+					break;
+				}
+			}
+			if (!skip)
+			{   
+				MeshTexture texture;
+				texture.id = TextureFromFile(str.C_Str(), m_Directory);
+				texture.type = typeName;
+				texture.path = str.C_Str();
+				textures.push_back(texture);
+				textures_loaded.push_back(texture);
+			}
 		}
 		return textures;
+	}
+	Model::~Model() {
+		for (MeshTexture texture : textures_loaded) {
+			glDeleteTextures(1, &texture.id);
+		}
 	}
 }

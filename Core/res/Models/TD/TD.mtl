@@ -1,0 +1,24 @@
+# Blender 4.3.2 MTL File: 'TD.blend'
+# www.blender.org
+
+newmtl Metal
+Ns 422.499969
+Ka 0.850000 0.850000 0.850000
+Ks 0.350000 0.350000 0.350000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd Texture.tga
+map_Bump -bm 1.000000 Texture_NM.tga
+
+newmtl Otro
+Ns 62.500000
+Ka 0.300000 0.300000 0.300000
+Ks 0.150000 0.150000 0.150000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd Texture.tga
+map_Bump -bm 2.000000 Texture_NM.tga

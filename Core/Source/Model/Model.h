@@ -15,6 +15,7 @@ namespace Core {
 	{
 	public:
 		Model(const char* path);
+		~Model();
 		void Draw(Shader& shader);
 		void LoadModel();
 	private:
@@ -22,7 +23,8 @@ namespace Core {
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 		std::vector<MeshTexture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 		std::vector<Mesh> meshes;
-		std::string directory;
+		std::string m_Directory;
 		std::string m_path;
+		std::vector<MeshTexture> textures_loaded;
 	};
 }

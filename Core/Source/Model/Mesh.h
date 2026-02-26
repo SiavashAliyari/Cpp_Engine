@@ -18,12 +18,12 @@ namespace Core {
 	};
 	class Mesh {
 	public:
-		
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<MeshTexture> textures;
 
 		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures);
+		~Mesh();
 		void Draw(Shader& shader);
 	private:
 		unsigned int m_VAO, m_VBO, m_EBO;

@@ -7,12 +7,12 @@
 
 namespace Core {
 	Shader::Shader(const std::string& filepath)
-		:m_filepath(filepath),m_RendererID(0)
-	{
-		m_sources= Shader::ParseShader(filepath);
+		:m_filepath(filepath),m_RendererID(0){}
+
+	void Shader::Init() {
+		m_sources = Shader::ParseShader(m_filepath);
 		m_RendererID = Shader::CreateShader(m_sources.VertexSource, m_sources.FragmentSource);
 		glUseProgram(m_RendererID);
-
 	}
 	Shader::~Shader() {
 		DeleteShader(m_RendererID);

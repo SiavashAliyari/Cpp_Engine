@@ -5,17 +5,15 @@
 #include "ImGui/ImGuiSlider.h"
 
 ModelLayer::ModelLayer()
-	:m_Shader("../Core/res/Shaders/Unlit.shader"),m_Model("../Core/res/Models/Helmet/scene.gltf")
+	:m_Shader("../Core/res/Shaders/Unlit.shader"),m_Model("../Core/res/Models/TD/TD.obj")
 {
 	m_Renderer = Core::Renderer();
 	m_Renderer.Init();
 
+    m_Shader.Init();
+    m_Shader.Bind();
+    m_Shader.SetUniform4f("u_Color", 0.1f, 1.1f, 1.2f, 1.0f);
     m_Model.LoadModel();
-    
-     
-	m_Shader.Bind();
-	m_Shader.SetUniform4f("u_Color", 0.1f, 1.1f, 1.2f, 1.0f);
-
 
 }
 ModelLayer::~ModelLayer() {
