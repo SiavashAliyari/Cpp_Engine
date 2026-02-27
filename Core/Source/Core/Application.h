@@ -36,6 +36,7 @@ namespace Core {
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 
 		Core::FrameBuffer m_FrameBuffer;
+		glm::vec2 m_ViewportSize;
 
 
 	};

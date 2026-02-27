@@ -10,7 +10,6 @@ ModelLayer::ModelLayer()
 	m_Renderer = Core::Renderer();
 	m_Renderer.Init();
 
-
     m_Model.LoadModel();
     m_Shader.Init();
     m_Shader.Bind();

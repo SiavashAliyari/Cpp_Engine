@@ -1,6 +1,7 @@
 #pragma once
 #include "glm/glm.hpp"
 
+
 namespace Core {
 	class FrameBuffer{
 	public:
@@ -10,7 +11,7 @@ namespace Core {
 		void Invalidate(); 
 		void Bind();
 		void UnBind();
-
+		void Resize(const float& width, const float& height);
 		unsigned int GetColorAttachment()const { return m_ColorAttachment; };
 
 	private:

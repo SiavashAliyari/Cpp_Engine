@@ -49,23 +49,35 @@ namespace Core {
 
 			
 			m_FrameBuffer.Bind();
-
 			for (const auto& layer : m_LayerStack)
 				layer->OnUpdate(timeStamp);
 			for (const auto& layer : m_LayerStack)
 				layer->OnRender();
-
 			m_FrameBuffer.UnBind();
 
 
 			m_ImGuiLayer->Begin();
 			unsigned int textureID = m_FrameBuffer.GetColorAttachment();
-			ImGui::Image((void*)(intptr_t)textureID, ImVec2(320.0f, 120.0f));
+
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0 , 0 });
+			ImGui::Begin("Viewport");
+			ImVec2 viewportPanelSize=ImGui::GetContentRegionAvail();
+			if (viewportPanelSize.x != m_ViewportSize.x || viewportPanelSize.y != m_ViewportSize.y) {
+
+				m_ViewportSize.x = viewportPanelSize.x;
+				m_ViewportSize.y = viewportPanelSize.y;
+
+				m_FrameBuffer.Resize(m_ViewportSize.x,m_ViewportSize.y);
+			}
+
+			ImGui::Image((void*)(intptr_t)textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+			ImGui::End();
+			ImGui::PopStyleVar();
+
 			for (const auto& layer : m_LayerStack)
 				layer->OnImguiDraw();
+			
 			m_ImGuiLayer->End();
-
-
 			m_Window->SwapBuffers();
 
 		}

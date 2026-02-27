@@ -17,18 +17,18 @@
 #include "ModelLayer.h"
 #include "ImGui/ImGuiLayer.h"
 
-//void OnEvent(Core::Event& e)
-//{
-//    Core::EventDispatcher dispatcher(e);
-//
-//    dispatcher.Dispatch<Core::WindowResizeEvent>([](Core::WindowResizeEvent& ev)
-//    {
-//        int m_Width = ev.GetWidth();
-//        int m_Height = ev.GetHeight();
-//        std::cout << m_Width << std::endl;
-//        return true;
-//    });
-//}
+void OnEvent(Core::Event& e)
+{
+	Core::EventDispatcher dispatcher(e);
+
+	dispatcher.Dispatch<Core::WindowResizeEvent>([](Core::WindowResizeEvent& ev)
+	{
+		int m_Width = ev.GetWidth();
+		int m_Height = ev.GetHeight();
+		std::cout << m_Width << std::endl;
+		return true;
+	});
+}
 
 int main()
 {
@@ -41,6 +41,7 @@ int main()
         specification.width = 1280;
         specification.height= 720;
         Core::Application application(specification);
+        
         //application.PushLayer<Applayer>();
         application.PushLayer<ModelLayer>();
         application.Run();
