@@ -19,6 +19,11 @@ namespace Core {
 		s_Application = this;
 		glfwSetErrorCallback(GLFWErrorCallback);
 		m_Window = std::make_shared<Window>(specification.width, specification.height, m_Specification.Name.c_str());
+		m_Window->SetEventCallback([this](Core::Event& e)
+		{
+			this->OnEvent(e);
+		});
+
 		m_ImGuiLayer = std::make_unique<Core::ImGuiLayer>(*m_Window);
 		m_FrameBuffer.Invalidate();
 	}
@@ -87,6 +92,15 @@ namespace Core {
 	void Application::Stop() {
 		m_Running = false;
 	}
+
+	void Application::OnEvent(Core::Event& e)
+	{
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+		{
+			(*it)->OnEvent(e);
+		}
+	}
+
 	glm::vec2 Application::GetFramebufferSize() const {
 		return m_Window->GetFramebufferSize();
 	}

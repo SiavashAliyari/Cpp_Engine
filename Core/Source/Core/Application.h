@@ -6,6 +6,8 @@
 #include "Layer.h"
 #include "ImGui/ImGuiLayer.h"
 #include "Render/FrameBuffer.h"
+#include "Event/Event.h"
+
 
 namespace Core {
 
@@ -19,6 +21,7 @@ namespace Core {
 		~Application();
 		void Run();
 		void Stop();
+		void OnEvent(Core::Event& e);
 		glm::vec2 GetFramebufferSize()const;
 		static Application& Get();
 		static float GetTime();
@@ -36,8 +39,7 @@ namespace Core {
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 
 		Core::FrameBuffer m_FrameBuffer;
-		glm::vec2 m_ViewportSize;
-
+		glm::vec2 m_ViewportSize{ 1280,720 };
 
 	};
 }
