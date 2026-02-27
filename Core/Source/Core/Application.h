@@ -5,6 +5,7 @@
 #include "glm/glm.hpp"
 #include "Layer.h"
 #include "ImGui/ImGuiLayer.h"
+#include "Render/FrameBuffer.h"
 
 namespace Core {
 
@@ -33,6 +34,9 @@ namespace Core {
 
 		std::vector<std::unique_ptr<Layer>> m_LayerStack;
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
+
+		Core::FrameBuffer m_FrameBuffer;
+
 
 	};
 }

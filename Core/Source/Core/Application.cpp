@@ -3,6 +3,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include "ImGui/ImGuiLayer.h"
+#include "imgui.h"
 
 namespace Core {
 	//singleton
@@ -13,14 +14,13 @@ namespace Core {
 	}
 
 	Application::Application(const ApplicationSpecification& specification)
-		:m_Specification(specification)
+		:m_Specification(specification),m_FrameBuffer(specification.width,specification.height,false)
 	{
 		s_Application = this;
 		glfwSetErrorCallback(GLFWErrorCallback);
 		m_Window = std::make_shared<Window>(specification.width, specification.height, m_Specification.Name.c_str());
 		m_ImGuiLayer = std::make_unique<Core::ImGuiLayer>(*m_Window);
-		
-		
+		m_FrameBuffer.Invalidate();
 	}
 
 	Application::~Application() {
@@ -34,6 +34,7 @@ namespace Core {
 		m_Running = true;
 		float lastTime = GetTime();
 
+	
 		//application loop
 		while (m_Running) {
 			glfwPollEvents();
@@ -47,14 +48,19 @@ namespace Core {
 			lastTime = currentTime;
 
 			
+			m_FrameBuffer.Bind();
 
 			for (const auto& layer : m_LayerStack)
 				layer->OnUpdate(timeStamp);
 			for (const auto& layer : m_LayerStack)
 				layer->OnRender();
 
+			m_FrameBuffer.UnBind();
+
 
 			m_ImGuiLayer->Begin();
+			unsigned int textureID = m_FrameBuffer.GetColorAttachment();
+			ImGui::Image((void*)(intptr_t)textureID, ImVec2(320.0f, 120.0f));
 			for (const auto& layer : m_LayerStack)
 				layer->OnImguiDraw();
 			m_ImGuiLayer->End();
@@ -63,6 +69,8 @@ namespace Core {
 			m_Window->SwapBuffers();
 
 		}
+
+
 	}
 	void Application::Stop() {
 		m_Running = false;
