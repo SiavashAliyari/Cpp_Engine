@@ -10,6 +10,8 @@ public:
 
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
+	virtual void OnImguiDraw() override;
+
 private:
 	Core::Renderer m_Renderer;
 	bool m_FirstRender = true;

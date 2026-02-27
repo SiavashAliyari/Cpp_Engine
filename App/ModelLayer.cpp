@@ -28,7 +28,6 @@ void ModelLayer::OnUpdate(float ts) {
 void ModelLayer::OnRender() {
     m_Renderer.Clear();
 
-    Core::ImGuiSlider::Slider(m_Rotation);
 
     float aspect = 1280.0f / 720.0f;
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
@@ -45,4 +44,7 @@ void ModelLayer::OnRender() {
     m_Model.Draw(m_Shader);
     m_Shader.UnBind();
 
+}
+void ModelLayer::OnImguiDraw() {
+    Core::ImGuiSlider::Slider(m_Rotation);
 }
