@@ -3,8 +3,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 namespace Core {
-	MeshRenderer::MeshRenderer(const char* path,const std::string shaderPath)
-		:m_Model(path),m_Shader(shaderPath)
+	MeshRenderer::MeshRenderer(const Transform& trasnform, const char* path, const std::string shaderPath)
+		:m_Model(path), m_Shader(shaderPath), m_transform(trasnform)
 	{
 		m_Model.LoadModel();
 
@@ -28,9 +28,8 @@ namespace Core {
 
 	void MeshRenderer::OnRender()
 	{
-
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+		glm::mat4 model = glm::translate(glm::mat4(1.0f),m_transform.position);
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));

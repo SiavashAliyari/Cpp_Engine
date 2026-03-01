@@ -2,11 +2,11 @@
 #include "Component.h"
 #include "Model/Model.h"
 #include "Shader/Shader.h"
-
+#include "Core/GameObject/GameObject.h"
 namespace Core {
 	class MeshRenderer : public Component {
 	public:
-		MeshRenderer(const char* path, const std::string shaderPath);
+		MeshRenderer(const Transform& trasnform,const char* path, const std::string shaderPath);
 		~MeshRenderer();
 
 		void OnUpdate(float ts) override;
@@ -14,8 +14,9 @@ namespace Core {
 		void OnRender() override;
 
 	private:
-		Core::Model m_Model;
-		Core::Shader m_Shader;
+		Model m_Model;
+		Shader m_Shader;
+		Transform m_transform;
 
 	};
 

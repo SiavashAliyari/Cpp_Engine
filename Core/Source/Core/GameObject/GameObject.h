@@ -22,6 +22,9 @@ namespace Core {
 
 		const std::string& GetName() const { return m_name; }
 		const Transform& GetTransform() const { return m_transform; }
+		void SetPosition(glm::vec3 pose){
+			m_transform.position = pose;
+		}
 		void OnUpdate(float ts);
 		void OnRender();
 
