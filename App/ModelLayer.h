@@ -3,6 +3,8 @@
 #include "Core/Renderer.h"
 #include "Model/Model.h"
 #include "Event/Event.h"
+#include "MainScene.h"
+
 
 
 class ModelLayer :public Core::Layer{
@@ -17,9 +19,7 @@ public:
 
 private:
 	Core::Renderer m_Renderer;
-	bool m_FirstRender = true;
-	Core::Shader m_Shader;
-	Core::Model m_Model;
 	glm::vec3 m_Rotation{ 0.0f,0.0f,0.0f };
 	float m_aspect = 1280 / 720;
+	MainScene m_scene;
 };
