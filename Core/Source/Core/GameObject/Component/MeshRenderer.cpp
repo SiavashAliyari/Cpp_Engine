@@ -1,6 +1,7 @@
 #include "MeshRenderer.h"
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
+#include "Scene/Scene.h"
 
 namespace Core {
 	MeshRenderer::MeshRenderer(const Transform& trasnform, const char* path, const std::string shaderPath)
@@ -33,8 +34,10 @@ namespace Core {
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		
-		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1290.0f/720.0f, 0.1f, 1000.0f);
+
+		glm::vec2 bounds = SceneManager::Get().GetActive()->GetCamera().GetBounds();
+
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), bounds.x/bounds.y, 0.1f, 1000.0f);
 		glm::mat4 mvp = proj * view * model;
 
 		m_Shader.Bind();

@@ -42,6 +42,7 @@ void MainScene::OnUpdate(const float& ts)
 
 void MainScene::OnEvent(Core::Event& e)
 {
+	Scene::OnEvent(e);
 
 }
 
