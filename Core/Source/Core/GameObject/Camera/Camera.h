@@ -8,6 +8,7 @@ namespace Core {
 		Camera();
 		~Camera();
 		const Transform& GetTransfrom() const { return m_Transform; };
+		Transform& GetTransfrom() { return m_Transform; };
 		void SetBounds(const float& width,const float& height) 
 		{
 			bounds.x = width;

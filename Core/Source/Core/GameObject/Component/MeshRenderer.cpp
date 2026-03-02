@@ -29,13 +29,23 @@ namespace Core {
 
 	void MeshRenderer::OnRender()
 	{
-		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+		Scene* activeScene= SceneManager::Get().GetActive();
+		auto& camT = activeScene->GetCamera().GetTransfrom();
+
+
+		glm::mat4 view(1.0f);
+		view = glm::rotate(view, glm::radians(-camT.rotation.z), glm::vec3(0, 0, 1));
+		view = glm::rotate(view, glm::radians(-camT.rotation.x), glm::vec3(1, 0, 0));
+		view = glm::rotate(view, glm::radians(-camT.rotation.y), glm::vec3(0, 1, 0));
+		view = glm::translate(view, -camT.position);
+
+
 		glm::mat4 model = glm::translate(glm::mat4(1.0f),m_transform.position);
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		glm::vec2 bounds = SceneManager::Get().GetActive()->GetCamera().GetBounds();
+		glm::vec2 bounds = activeScene->GetCamera().GetBounds();
 
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), bounds.x/bounds.y, 0.1f, 1000.0f);
 		glm::mat4 mvp = proj * view * model;

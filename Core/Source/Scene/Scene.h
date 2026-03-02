@@ -33,7 +33,7 @@ namespace Core {
 		}
 		GameObject& Instantiate(const std::string& name);
 		std::vector<GameObject> m_GameObjects;
-	private:
+	protected:
 		Camera m_Camera;
 	};
 	class SceneManager {
