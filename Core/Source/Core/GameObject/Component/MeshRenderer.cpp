@@ -33,6 +33,9 @@ namespace Core {
 		auto& camT = activeScene->GetCamera().GetTransfrom();
 
 
+
+
+
 		glm::mat4 view(1.0f);
 		view = glm::rotate(view, glm::radians(-camT.rotation.z), glm::vec3(0, 0, 1));
 		view = glm::rotate(view, glm::radians(-camT.rotation.x), glm::vec3(1, 0, 0));
@@ -46,6 +49,10 @@ namespace Core {
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		glm::vec2 bounds = activeScene->GetCamera().GetBounds();
+		if (bounds.x <= 0.0f || bounds.y <= 0.0f) {
+			return;
+		}
+
 
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), bounds.x/bounds.y, 0.1f, 1000.0f);
 		glm::mat4 mvp = proj * view * model;
