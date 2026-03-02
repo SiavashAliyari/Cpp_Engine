@@ -19,7 +19,5 @@ public:
 
 private:
 	Core::Renderer m_Renderer;
-	glm::vec3 m_Rotation{ 0.0f,0.0f,0.0f };
-	float m_aspect = 1280 / 720;
 	MainScene m_scene;
 };

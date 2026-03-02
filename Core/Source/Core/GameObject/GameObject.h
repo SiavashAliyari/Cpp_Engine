@@ -82,6 +82,9 @@ namespace Core {
 		void SetPosition(glm::vec3 pose){
 			m_transform.position = pose;
 		}
+		void SetRotation(glm::vec3 rot) {
+			m_transform.rotation = rot;
+		}
 		void OnUpdate(float ts);
 		void OnRender();
 
@@ -91,6 +94,8 @@ namespace Core {
 		T& PushComponent(Args&&... args)
 		{
 			auto component = std::make_unique<T>(std::forward<Args>(args)...);
+
+			component->m_GameObject = this;   
 
 			T& ref = *component;
 			m_Components.emplace_back(std::move(component));

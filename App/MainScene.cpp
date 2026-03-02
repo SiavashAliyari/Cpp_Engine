@@ -23,6 +23,14 @@ void MainScene::Init() {
 		"../Core/res/Shaders/Unlit.shader"
 	);
 
+	Core::GameObject& hawk = Instantiate("hawk");
+	hawk.SetRotation({ 90.0f,90.0f, 0.0f });
+	hawk.SetPosition({ 0.0f,0.0f,-10.0f });
+	hawk.PushComponent<Core::MeshRenderer>(hawk.GetTransform(),
+		"../Core/res/Models/Helmet/scene.gltf",
+		"../Core/res/Shaders/Unlit.shader"
+	);
+
 	Core::GameObject& man = Instantiate("man");
 	man.SetPosition({ -5.0f,0.0f,-10.0f });
 	man.PushComponent<Core::MeshRenderer>(man.GetTransform(),

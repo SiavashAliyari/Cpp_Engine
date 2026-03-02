@@ -29,19 +29,11 @@ void ModelLayer::OnRender() {
 	m_scene.OnRender();
 }
 void ModelLayer::OnImguiDraw() {
-	Core::ImGuiSlider::Slider(m_Rotation);
+	
+	Core::ImGuiSlider::Slider(m_scene.GetLight().GetTransfrom().position);
 }
 
 void ModelLayer::OnEvent(Core::Event& e)
 {
-	//Core::EventDispatcher dispatcher(e);
-
-	//dispatcher.Dispatch<Core::WindowResizeEvent>([this](Core::WindowResizeEvent& ev)
-	//{
-	//	int m_Width = ev.GetWidth();
-	//	int m_Height = ev.GetHeight();
-	//	m_aspect = (float)m_Width / (float)m_Height;
-	//	return true;
-	//});
 	m_scene.OnEvent(e);
 }

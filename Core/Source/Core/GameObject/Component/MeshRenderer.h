@@ -3,6 +3,7 @@
 #include "Model/Model.h"
 #include "Shader/Shader.h"
 #include "Core/GameObject/GameObject.h"
+
 namespace Core {
 	class MeshRenderer : public Component {
 	public:

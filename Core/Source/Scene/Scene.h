@@ -7,6 +7,7 @@
 #include "Event/KeyEvent.h"
 #include "Event/MouseEvent.h"
 #include "Event/Event.h"
+#include "Core/GameObject/Light/Light.h"
 
 namespace Core {
 
@@ -100,12 +101,16 @@ namespace Core {
 		}
 		GameObject& Instantiate(const std::string& name);
 		std::vector<GameObject> m_GameObjects;
+		Light& GetLight() { return m_light; }
+
+
 	protected:
 		Camera m_Camera;
 		glm::vec2 m_MoveDirection{ 0.0f,0.0f };
 		bool m_CtrlDown = false;
 		glm::vec2 m_MouseMove{ 0.0f,0.0f };
 		glm::vec2 m_MouseMoveLast{ 0.0f,0.0f };
+		Light m_light;
 
 	};
 
@@ -133,8 +138,6 @@ namespace Core {
 	private:
 		SceneManager() = default;
 		Scene* m_ActiveScene = nullptr;
-		
-
 
 	};
 

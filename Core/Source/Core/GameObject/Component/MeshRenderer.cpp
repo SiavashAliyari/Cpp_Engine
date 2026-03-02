@@ -31,9 +31,7 @@ namespace Core {
 	{
 		Scene* activeScene= SceneManager::Get().GetActive();
 		auto& camT = activeScene->GetCamera().GetTransfrom();
-
-
-
+	
 
 
 		glm::mat4 view(1.0f);
@@ -44,9 +42,9 @@ namespace Core {
 
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f),m_transform.position);
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(m_transform.rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(m_transform.rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(m_transform.rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		glm::vec2 bounds = activeScene->GetCamera().GetBounds();
 		if (bounds.x <= 0.0f || bounds.y <= 0.0f) {
@@ -57,8 +55,13 @@ namespace Core {
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), bounds.x/bounds.y, 0.1f, 1000.0f);
 		glm::mat4 mvp = proj * view * model;
 
+
+
+		Light& directional=activeScene->GetLight();
 		m_Shader.Bind();
 		m_Shader.SetUniformMat4f("u_MVP", mvp);
+		m_Shader.SetUniform3f("u_Directional_Light", directional.GetTransfrom().position.x, directional.GetTransfrom().position.y, directional.GetTransfrom().position.z);
+		m_Shader.SetUniform1f("u_Ambient", 0.1f);
 		m_Model.Draw(m_Shader);
 		m_Shader.UnBind();
 
