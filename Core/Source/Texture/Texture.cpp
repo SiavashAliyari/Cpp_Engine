@@ -4,17 +4,18 @@
 #include <glad/glad.h>
 
 Core::Texture::Texture(const std::string& path)
-	: m_RendererID(0), m_Filepath(path), m_LocalBuffer(nullptr), m_width(0), m_Height(0), m_BPP(0)
-{
-	std::cout << "[Core::Texture] ctor: " << path << "\n";
+	: m_RendererID(0), m_Filepath(path), m_LocalBuffer(nullptr), m_width(0), m_Height(0), m_BPP(0){}
+
+void Core::Texture::Init() {
+	std::cout << "[Core::Texture] ctor: " << m_Filepath << "\n";
 	stbi_set_flip_vertically_on_load(1);
-	m_LocalBuffer = stbi_load(path.c_str(), &m_width, &m_Height, &m_BPP,4);
+	m_LocalBuffer = stbi_load(m_Filepath.c_str(), &m_width, &m_Height, &m_BPP, 4);
 
 	glGenTextures(1, &m_RendererID);
 	glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_Height, 0, GL_RGBA,

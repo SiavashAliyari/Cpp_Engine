@@ -16,11 +16,12 @@
 namespace Core {
 
 	Instancing::Instancing() 
-		:vao(0),vbo(0),ebo(0), instanceVBO(0), INSTANCE_COUNT(0), m_Shader("../Core/res/Shaders/Cards.shader"),
-		m_Texture("../Core/res/Images/limoo.png") {}
+		:vao(0),vbo(0),ebo(0), instanceVBO(0), m_Shader("../Core/res/Shaders/Cards.shader"),
+		m_Texture("../Core/res/Images/Brand.png") {}
 
 	void Instancing::Init() {
 		m_Shader.Init();
+		m_Texture.Init();
 		static VertexInstanced quadVerts[] = {
 		{-0.5f,-0.5f,0.0f,   0.0f,0.0f},
 		{ 0.5f,-0.5f,0.0f,   1.0f,0.0f},
@@ -108,8 +109,8 @@ namespace Core {
 		m_Shader.Bind();
 		
 		
-		m_Texture.Bind();
-		m_Shader.SetUniform1i("u_Texture", 0);
+		m_Texture.Bind(4);
+		m_Shader.SetUniform1i("u_Texture", 4);
 
 		Scene* activeScene = SceneManager::Get().GetActive();
 		if (!activeScene) return;
@@ -136,11 +137,7 @@ namespace Core {
 
 
 		glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, INSTANCE_COUNT);
-		m_Texture.UnBind();
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, 0); // optional
-		glBindVertexArray(0);
-	}
 
+	}
 
 }

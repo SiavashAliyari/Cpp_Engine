@@ -27,5 +27,6 @@ uniform sampler2D u_Texture;
 void main()
 {
     vec4 c = texture(u_Texture, v_uv);
-    FragColor = c;
+    if (c.a < 0.3) discard;
+    FragColor = c.r*vec4(1,0,0,1) ;
 }

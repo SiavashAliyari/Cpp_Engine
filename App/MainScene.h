@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene/Scene.h"
 #include "glm/glm.hpp"
+#include "Instancing/Instancing.h"
 
 class MainScene :public Core::Scene {
 public:
@@ -11,6 +12,5 @@ public:
 	void OnUpdate(const float& ts) override;
 	void OnEvent(Core::Event& e) override;
 private:
-
-
+	Core::Instancing m_Cards;
 };

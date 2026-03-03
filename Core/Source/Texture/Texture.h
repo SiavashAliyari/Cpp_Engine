@@ -11,7 +11,7 @@ namespace Core {
 	public:
 		Texture(const std::string& path);
 		~Texture();
-
+		void Init();
 		void Bind(unsigned int slot=0)const;
 		void UnBind()const;
 		unsigned int GetID() const { return m_RendererID; }

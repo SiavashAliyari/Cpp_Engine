@@ -38,6 +38,7 @@ void MainScene::Init() {
 		"../Core/res/Models/TD/TD.obj",
 		"../Core/res/Shaders/Unlit.shader"
 	);
+	m_Cards.Init();
 }
 
 void MainScene::OnRender()
@@ -45,6 +46,8 @@ void MainScene::OnRender()
 	for (auto& gameObject : m_GameObjects) {
 		gameObject.OnRender();
 	}
+	m_Cards.Draw();
+
 }
 
 void MainScene::OnUpdate(const float& ts)
