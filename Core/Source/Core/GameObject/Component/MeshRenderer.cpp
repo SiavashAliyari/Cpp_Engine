@@ -58,7 +58,6 @@ namespace Core {
 		glm::mat4 mvp = proj * view * model;
 
 
-
 		Light& directional=activeScene->GetLight();
 		m_Shader.Bind();
 		m_Shader.SetUniformMat4f("u_MVP", mvp);

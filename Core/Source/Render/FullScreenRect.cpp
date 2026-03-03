@@ -3,7 +3,7 @@
 
 namespace Core {
 	FullScreenRect::FullScreenRect()
-		:m_Shader("../Core/res/Shaders/PostProcessing.shader"), m_Texture(0), m_Spec{false,false} {}
+		:m_Shader("../Core/res/Shaders/PostProcessing.shader"), m_Texture(0), m_Spec{false,false,false} {}
 
 	void FullScreenRect::Init() {
 		m_Vao=std::make_unique<VertexArray>();
@@ -47,6 +47,11 @@ namespace Core {
 		m_Shader.SetUniform1i("u_blackAndWhite", m_Spec.ghosted);
 		m_Shader.SetUniform1i("u_tint", m_Spec.tint);
 		m_Shader.SetUniform4f("u_tint_color", m_Spec.tintColor.r, m_Spec.tintColor.g, m_Spec.tintColor.b, m_Spec.tintColor.a);
+
+		m_Shader.SetUniform1i("u_vignette", m_Spec.vignette);
+		m_Shader.SetUniform1f("u_vignetteStrength", m_Spec.vignetteStrength);
+		m_Shader.SetUniform1f("u_vignetteRadius", m_Spec.vignetteRadius);
+		m_Shader.SetUniform1f("u_vignetteSoftness", m_Spec.vignetteSoftness);
 		m_Vao->Bind();
 		m_Ibo->Bind();
 		glDrawElements(GL_TRIANGLES, m_Ibo->GetCount(), GL_UNSIGNED_INT, nullptr);

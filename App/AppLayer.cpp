@@ -72,7 +72,7 @@ void Applayer::OnRender()
 
 	m_Renderer.Clear();
 	
-	Core::ImGuiComponent::Slider(m_Position);
+	Core::ImGuiComponent::Slider("test", m_Position,0.0f,1.0f);
 
 
 	//moving camera to the left

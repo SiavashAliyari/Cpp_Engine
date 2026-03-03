@@ -8,7 +8,7 @@ namespace Core
 	class Light {
 	public:
 		Transform& GetTransfrom() { return m_Transform; }
-		const float& GetIntensity()const { return m_Intensity; }
+		float& GetIntensity() { return m_Intensity; }
 		void SetIntensity(float& intensity) {
 			m_Intensity = intensity;
 		}

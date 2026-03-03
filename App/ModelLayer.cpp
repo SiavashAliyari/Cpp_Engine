@@ -31,13 +31,21 @@ void ModelLayer::OnRender() {
 void ModelLayer::OnImguiDraw() {
 	
 	Core::ImGuiComponent::Open("Inspector");
-	Core::ImGuiComponent::Slider(m_scene.GetLight().GetTransfrom().position);
-	
+	Core::ImGuiComponent::Slider("Light Direction", m_scene.GetLight().GetTransfrom().position,-1.0f,1.0f);
+	Core::ImGuiComponent::Slider1f("Intensity", m_scene.GetLight().GetIntensity(),0.0f,2.0f);
+
 	Core::Application& app=Core::Application::Get();
 	//postprocessing options
 	Core::ImGuiComponent::Toggle("Ghosted", app.GetPostProcessing().GetSpec().ghosted);
 	Core::ImGuiComponent::Toggle("Tint", app.GetPostProcessing().GetSpec().tint);
 	Core::ImGuiComponent::ColorPicker("Tint Color", app.GetPostProcessing().GetSpec().tintColor);
+	Core::ImGuiComponent::Text("Vignette");
+	Core::ImGuiComponent::Toggle("Vignette", app.GetPostProcessing().GetSpec().vignette);
+	Core::ImGuiComponent::Slider1f("Radius", app.GetPostProcessing().GetSpec().vignetteRadius,0.0f,1.0f);
+	Core::ImGuiComponent::Slider1f("Strength", app.GetPostProcessing().GetSpec().vignetteStrength,0.0f,1.0f);
+	Core::ImGuiComponent::Slider1f("Softness", app.GetPostProcessing().GetSpec().vignetteSoftness,0.0f,1.0f);
+
+
 
 	Core::ImGuiComponent::Close();
 

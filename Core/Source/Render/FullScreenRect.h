@@ -10,7 +10,11 @@ namespace Core {
 	struct PostProcessingSpecification {
 		bool ghosted;
 		bool tint;
+		bool vignette;
 		glm::vec4 tintColor;
+		float vignetteStrength=0.4f;
+		float vignetteRadius=0.75f;
+		float vignetteSoftness= 0.35f;
 	};
 	class FullScreenRect {
 	public:

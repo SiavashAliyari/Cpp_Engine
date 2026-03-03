@@ -23,11 +23,31 @@ uniform sampler2D u_Texture;
 uniform bool u_blackAndWhite;
 uniform bool u_tint;
 uniform vec4 u_tint_color;
+
+uniform bool  u_vignette;
+uniform float u_vignetteStrength=0.4; 
+uniform float u_vignetteRadius=0.75;  
+uniform float u_vignetteSoftness=0.35;
+
+
 void main()
 {
     vec4 texColor=texture(u_Texture,v_uv);
-   
     vec4 finalColor=texColor;
+
+    if (u_vignette)
+    {
+        vec2 p = v_uv - vec2(0.5);
+        float d = length(p);
+
+        float inner = u_vignetteRadius * 0.7071;
+        float outer = clamp(inner + max(u_vignetteSoftness, 0.0001) * 0.7071, 0.0, 0.7071);
+
+        float vig = smoothstep(outer, inner, d); 
+        float amount = mix(1.0 - u_vignetteStrength, 1.0, vig);
+
+        finalColor.rgb *= amount;
+    }
 
     if(u_tint){
         finalColor+=u_tint_color;
