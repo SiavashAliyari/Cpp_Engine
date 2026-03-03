@@ -14,7 +14,8 @@ namespace Core {
 	}
 
 	Application::Application(const ApplicationSpecification& specification)
-		:m_Specification(specification),m_FrameBuffer(specification.width,specification.height,false)
+		:m_Specification(specification),m_FrameBuffer(specification.width,specification.height,false),
+		m_PostProcessing(specification.width, specification.height, false)
 	{
 		s_Application = this;
 		glfwSetErrorCallback(GLFWErrorCallback);
@@ -26,6 +27,8 @@ namespace Core {
 
 		m_ImGuiLayer = std::make_unique<Core::ImGuiLayer>(*m_Window);
 		m_FrameBuffer.Invalidate();
+		m_PostProcessing.Invalidate();
+		m_Rect.Init();
 	}
 
 	Application::~Application() {
@@ -52,13 +55,19 @@ namespace Core {
 			float timeStamp = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
 			lastTime = currentTime;
 
-			
-			m_FrameBuffer.Bind();
+			m_PostProcessing.Bind();
 			for (const auto& layer : m_LayerStack)
 				layer->OnUpdate(timeStamp);
 			for (const auto& layer : m_LayerStack)
 				layer->OnRender();
+			m_PostProcessing.UnBind();
+
+
+			unsigned int postID = m_PostProcessing.GetColorAttachment();
+			m_FrameBuffer.Bind();
+			m_Rect.Draw(postID);
 			m_FrameBuffer.UnBind();
+			
 
 
 			m_ImGuiLayer->Begin();
@@ -72,7 +81,11 @@ namespace Core {
 				m_ViewportSize.x = viewportPanelSize.x;
 				m_ViewportSize.y = viewportPanelSize.y;
 
-				m_FrameBuffer.Resize(m_ViewportSize.x,m_ViewportSize.y);
+
+				if (m_ViewportSize.x > 0 && m_ViewportSize.y > 0) {
+					m_FrameBuffer.Resize(m_ViewportSize.x, m_ViewportSize.y);
+					m_PostProcessing.Resize(m_ViewportSize.x, m_ViewportSize.y);
+				}
 			}
 
 			ImGui::Image((void*)(intptr_t)textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y));

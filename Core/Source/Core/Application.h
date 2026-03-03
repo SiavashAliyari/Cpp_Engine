@@ -7,7 +7,7 @@
 #include "ImGui/ImGuiLayer.h"
 #include "Render/FrameBuffer.h"
 #include "Event/Event.h"
-
+#include "Render/FullScreenRect.h"
 
 namespace Core {
 
@@ -39,7 +39,9 @@ namespace Core {
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 
 		Core::FrameBuffer m_FrameBuffer;
+		Core::FrameBuffer m_PostProcessing;
 		glm::vec2 m_ViewportSize{ 1280,720 };
+		FullScreenRect m_Rect;
 
 	};
 }

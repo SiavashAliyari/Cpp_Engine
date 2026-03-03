@@ -61,7 +61,7 @@ namespace Core {
 		m_Shader.Bind();
 		m_Shader.SetUniformMat4f("u_MVP", mvp);
 		m_Shader.SetUniform3f("u_Directional_Light", directional.GetTransfrom().position.x, directional.GetTransfrom().position.y, directional.GetTransfrom().position.z);
-		m_Shader.SetUniform1f("u_Ambient", 0.1f);
+		m_Shader.SetUniform1f("u_Ambient", directional.GetIntensity());
 		m_Model.Draw(m_Shader);
 		m_Shader.UnBind();
 

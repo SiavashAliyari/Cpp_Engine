@@ -17,7 +17,7 @@ namespace Core
 		}
 	private:
 		Transform m_Transform;
-		float m_Intensity;
+		float m_Intensity=0.8f;
 
 	};
 

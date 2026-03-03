@@ -11,7 +11,7 @@ namespace Core {
 		void Invalidate(); 
 		void Bind();
 		void UnBind();
-		void Resize(const float& width, const float& height);
+		void Resize(uint32_t width, uint32_t height);
 		unsigned int GetColorAttachment()const { return m_ColorAttachment; };
 
 	private:
