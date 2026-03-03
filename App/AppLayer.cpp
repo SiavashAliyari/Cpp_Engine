@@ -14,7 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Event/ApplicationEvent.h>
 #include "Core/Application.h"
-#include "ImGui/ImGuiSlider.h"
+#include "ImGui/ImGuiComponent.h"
 
 Applayer::Applayer()
 	: m_Shader("../Core/res/Shaders/Basic.shader")
@@ -72,7 +72,7 @@ void Applayer::OnRender()
 
 	m_Renderer.Clear();
 	
-	Core::ImGuiSlider::Slider(m_Position);
+	Core::ImGuiComponent::Slider(m_Position);
 
 
 	//moving camera to the left

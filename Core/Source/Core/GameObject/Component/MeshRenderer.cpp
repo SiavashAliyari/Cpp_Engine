@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 #include "Scene/Scene.h"
+#include "Core/Application.h"
 
 namespace Core {
 	MeshRenderer::MeshRenderer(const Transform& trasnform, const char* path, const std::string shaderPath)
@@ -52,7 +53,8 @@ namespace Core {
 		}
 
 
-		glm::mat4 proj = glm::perspective(glm::radians(45.0f), bounds.x/bounds.y, 0.1f, 1000.0f);
+		glm::vec2& viewPortSize=Core::Application::Get().GetViewPortSize();
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), viewPortSize.x/ viewPortSize.y, 0.1f, 1000.0f);
 		glm::mat4 mvp = proj * view * model;
 
 

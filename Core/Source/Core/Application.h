@@ -30,6 +30,11 @@ namespace Core {
 		void PushLayer() {
 			m_LayerStack.push_back(std::make_unique<TLayer>());
 		}
+		FullScreenRect& GetPostProcessing() {
+			return m_Rect;
+		}
+		glm::vec2& GetViewPortSize() { return m_ViewportSize; }
+
 	private:
 		ApplicationSpecification m_Specification;
 		bool m_Running = false;

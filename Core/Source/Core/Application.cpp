@@ -92,6 +92,7 @@ namespace Core {
 			ImGui::End();
 			ImGui::PopStyleVar();
 
+
 			for (const auto& layer : m_LayerStack)
 				layer->OnImguiDraw();
 			

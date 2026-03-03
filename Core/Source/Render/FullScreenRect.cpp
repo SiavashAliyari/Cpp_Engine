@@ -3,7 +3,7 @@
 
 namespace Core {
 	FullScreenRect::FullScreenRect()
-		:m_Shader("../Core/res/Shaders/PostProcessing.shader"), m_Texture(0){}
+		:m_Shader("../Core/res/Shaders/PostProcessing.shader"), m_Texture(0), m_Spec{false,false} {}
 
 	void FullScreenRect::Init() {
 		m_Vao=std::make_unique<VertexArray>();
@@ -44,11 +44,14 @@ namespace Core {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		m_Shader.SetUniform1i("u_Texture", 0);
-
+		m_Shader.SetUniform1i("u_blackAndWhite", m_Spec.ghosted);
+		m_Shader.SetUniform1i("u_tint", m_Spec.tint);
+		m_Shader.SetUniform4f("u_tint_color", m_Spec.tintColor.r, m_Spec.tintColor.g, m_Spec.tintColor.b, m_Spec.tintColor.a);
 		m_Vao->Bind();
 		m_Ibo->Bind();
 		glDrawElements(GL_TRIANGLES, m_Ibo->GetCount(), GL_UNSIGNED_INT, nullptr);
 		glEnable(GL_DEPTH_TEST);
 
 	}
+
 }
