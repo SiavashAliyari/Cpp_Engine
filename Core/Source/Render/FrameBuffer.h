@@ -13,6 +13,7 @@ namespace Core {
 		void UnBind();
 		void Resize(uint32_t width, uint32_t height);
 		unsigned int GetColorAttachment()const { return m_ColorAttachment; };
+		unsigned int GetDepthAttachment() const { return m_DepthAttachment; }
 
 	private:
 		unsigned int m_Width;

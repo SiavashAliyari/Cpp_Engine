@@ -20,6 +20,7 @@ out vec4 FragColor;
 
 in vec2 v_uv;
 uniform sampler2D u_Texture;
+uniform sampler2D u_Depth;
 uniform bool u_blackAndWhite;
 uniform bool u_tint;
 uniform vec4 u_tint_color;
@@ -29,11 +30,37 @@ uniform float u_vignetteStrength=0.4;
 uniform float u_vignetteRadius=0.75;  
 uniform float u_vignetteSoftness=0.35;
 
+uniform bool  u_fog;
+uniform vec4  u_fogColor;
+uniform float u_fogDensity;
+uniform float u_Near;
+uniform float u_Far;
+
+
+float LinearizeDepth(float depth)
+{
+    float z = depth * 2.0 - 1.0;
+    return (2.0 * u_Near * u_Far) / (u_Far + u_Near - z * (u_Far - u_Near));
+}
 
 void main()
 {
     vec4 texColor=texture(u_Texture,v_uv);
+    vec4 depth=texture(u_Depth,v_uv);
+
     vec4 finalColor=texColor;
+
+     if (u_fog)
+    {
+        float depth01 = texture(u_Depth, v_uv).r;
+        float dist    = LinearizeDepth(depth01); 
+
+        float fogFactor = 1.0 - exp(-u_fogDensity * dist);
+        fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+        finalColor.rgb = mix(finalColor.rgb, u_fogColor.rgb, fogFactor);
+    }
+
 
     if (u_vignette)
     {

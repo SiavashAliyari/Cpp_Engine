@@ -17,8 +17,8 @@ MainScene::~MainScene()
 }
 void MainScene::Init() {
 	Core::GameObject& dog = Instantiate("dog");
-	dog.SetPosition({ 5.0f,0.0f,-10.0f });
-	dog.SetRotation({ 0.0f,0.0f, 180.0f });
+	dog.SetPosition({ 2.0f,0.0f,-11.0f });
+	dog.SetRotation({ 0.0f,0.0f, 135.0f });
 	dog.PushComponent<Core::MeshRenderer>(dog.GetTransform(),
 		"../Core/res/Models/TD/TD.obj",
 		"../Core/res/Shaders/Unlit.shader"
@@ -33,7 +33,8 @@ void MainScene::Init() {
 	);
 
 	Core::GameObject& man = Instantiate("man");
-	man.SetPosition({ -5.0f,0.0f,-10.0f });
+	man.SetPosition({ -2.0f,0.0f,-11.0f });
+	man.SetRotation({ 0.0f,0.0f, 45.0f });
 	man.PushComponent<Core::MeshRenderer>(man.GetTransform(),
 		"../Core/res/Models/TD/TD.obj",
 		"../Core/res/Shaders/Unlit.shader"

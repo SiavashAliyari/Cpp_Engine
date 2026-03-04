@@ -15,12 +15,18 @@ namespace Core {
 		float vignetteStrength=0.4f;
 		float vignetteRadius=0.75f;
 		float vignetteSoftness= 0.35f;
+
+		bool u_fog;
+		glm::vec4 fogColor{1.0f,0.0f,0.0f,1.0f};
+		float fogDensity= 0.02f;
+		float near=0.1f;
+		float far=100.0f;
 	};
 	class FullScreenRect {
 	public:
 		FullScreenRect();
 		void Init();
-		void Draw(unsigned int textureID);
+		void Draw(unsigned int textureID, unsigned int depthTex);
 		PostProcessingSpecification& GetSpec() { return m_Spec; }
 	private:
 		Core::Shader m_Shader;

@@ -44,6 +44,12 @@ void ModelLayer::OnImguiDraw() {
 	Core::ImGuiComponent::Slider1f("Radius", app.GetPostProcessing().GetSpec().vignetteRadius,0.0f,1.0f);
 	Core::ImGuiComponent::Slider1f("Strength", app.GetPostProcessing().GetSpec().vignetteStrength,0.0f,1.0f);
 	Core::ImGuiComponent::Slider1f("Softness", app.GetPostProcessing().GetSpec().vignetteSoftness,0.0f,1.0f);
+	
+	Core::ImGuiComponent::Toggle("Fog", app.GetPostProcessing().GetSpec().u_fog);
+	Core::ImGuiComponent::ColorPicker("Fog Color", app.GetPostProcessing().GetSpec().fogColor);
+	Core::ImGuiComponent::Slider1f("Density", app.GetPostProcessing().GetSpec().fogDensity, 0.0f, 1.0f);
+	Core::ImGuiComponent::Slider1f("Near", app.GetPostProcessing().GetSpec().near, 0.0f, 1.0f);
+	Core::ImGuiComponent::Slider1f("Far", app.GetPostProcessing().GetSpec().far, 0.0f, 100.0f);
 
 
 

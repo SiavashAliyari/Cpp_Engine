@@ -64,8 +64,9 @@ namespace Core {
 
 
 			unsigned int postID = m_PostProcessing.GetColorAttachment();
+
 			m_FrameBuffer.Bind();
-			m_Rect.Draw(postID);
+			m_Rect.Draw(postID,m_PostProcessing.GetDepthAttachment());
 			m_FrameBuffer.UnBind();
 			
 

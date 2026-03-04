@@ -36,7 +36,7 @@ namespace Core {
 	}
 
 
-	void FullScreenRect::Draw(unsigned int textureID)
+	void FullScreenRect::Draw(unsigned int textureID, unsigned int depthTex)
 	{
 		glDisable(GL_DEPTH_TEST);
 
@@ -44,6 +44,11 @@ namespace Core {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		m_Shader.SetUniform1i("u_Texture", 0);
+
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, depthTex);
+		m_Shader.SetUniform1i("u_Depth", 1);
+
 		m_Shader.SetUniform1i("u_blackAndWhite", m_Spec.ghosted);
 		m_Shader.SetUniform1i("u_tint", m_Spec.tint);
 		m_Shader.SetUniform4f("u_tint_color", m_Spec.tintColor.r, m_Spec.tintColor.g, m_Spec.tintColor.b, m_Spec.tintColor.a);
@@ -52,6 +57,13 @@ namespace Core {
 		m_Shader.SetUniform1f("u_vignetteStrength", m_Spec.vignetteStrength);
 		m_Shader.SetUniform1f("u_vignetteRadius", m_Spec.vignetteRadius);
 		m_Shader.SetUniform1f("u_vignetteSoftness", m_Spec.vignetteSoftness);
+
+		m_Shader.SetUniform1i("u_fog", m_Spec.u_fog);
+		m_Shader.SetUniform4f("u_fogColor", m_Spec.fogColor.r, m_Spec.fogColor.g, m_Spec.fogColor.b, m_Spec.fogColor.a);
+		m_Shader.SetUniform1f("u_fogDensity", m_Spec.fogDensity);
+		m_Shader.SetUniform1f("u_Near", m_Spec.near);
+		m_Shader.SetUniform1f("u_Far", m_Spec.far);
+
 		m_Vao->Bind();
 		m_Ibo->Bind();
 		glDrawElements(GL_TRIANGLES, m_Ibo->GetCount(), GL_UNSIGNED_INT, nullptr);
