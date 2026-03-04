@@ -29,8 +29,9 @@ void ModelLayer::OnRender() {
 	m_scene.OnRender();
 }
 void ModelLayer::OnImguiDraw() {
-	
+
 	Core::ImGuiComponent::Open("Inspector");
+	Core::ImGuiComponent::Text("Instructions:\n[WASD] to Move [Ctrl] and Mouse to Look");
 	Core::ImGuiComponent::Slider("Light Direction", m_scene.GetLight().GetTransfrom().position,-1.0f,1.0f);
 	Core::ImGuiComponent::Slider1f("Intensity", m_scene.GetLight().GetIntensity(),0.0f,2.0f);
 
