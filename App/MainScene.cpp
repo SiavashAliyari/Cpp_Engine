@@ -20,24 +20,24 @@ void MainScene::Init() {
 	dog.SetPosition({ 2.0f,0.0f,-11.0f });
 	dog.SetRotation({ 0.0f,0.0f, 135.0f });
 	dog.PushComponent<Core::MeshRenderer>(dog.GetTransform(),
-		"../Core/res/Models/TD/TD.obj",
-		"../Core/res/Shaders/Unlit.shader"
+		"../res/Models/TD/TD.obj",
+		"../res/Shaders/Unlit.shader"
 	);
 
 	Core::GameObject& hawk = Instantiate("hawk");
 	hawk.SetRotation({ -90.0f,180.0f, 0.0f });
 	hawk.SetPosition({ 0.0f,0.0f,-10.0f });
 	hawk.PushComponent<Core::MeshRenderer>(hawk.GetTransform(),
-		"../Core/res/Models/Helmet/scene.gltf",
-		"../Core/res/Shaders/Unlit.shader"
+		"../res/Models/Helmet/scene.gltf",
+		"../res/Shaders/Unlit.shader"
 	);
 
 	Core::GameObject& man = Instantiate("man");
 	man.SetPosition({ -2.0f,0.0f,-11.0f });
 	man.SetRotation({ 0.0f,0.0f, 45.0f });
 	man.PushComponent<Core::MeshRenderer>(man.GetTransform(),
-		"../Core/res/Models/TD/TD.obj",
-		"../Core/res/Shaders/Unlit.shader"
+		"../res/Models/TD/TD.obj",
+		"../res/Shaders/Unlit.shader"
 	);
 	m_Cards.Init();
 }

@@ -3,7 +3,7 @@
 
 namespace Core {
 	FullScreenRect::FullScreenRect()
-		:m_Shader("../Core/res/Shaders/PostProcessing.shader"), m_Texture(0), m_Spec{false,false,false} {}
+		:m_Shader("../res/Shaders/PostProcessing.shader"), m_Texture(0), m_Spec{false,false,false} {}
 
 	void FullScreenRect::Init() {
 		m_Vao=std::make_unique<VertexArray>();

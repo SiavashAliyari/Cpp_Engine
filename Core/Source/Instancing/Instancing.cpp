@@ -16,8 +16,8 @@
 namespace Core {
 
 	Instancing::Instancing() 
-		:vao(0),vbo(0),ebo(0), instanceVBO(0), m_Shader("../Core/res/Shaders/Cards.shader"),
-		m_Texture("../Core/res/Images/Brand.png") {}
+		:vao(0),vbo(0),ebo(0), instanceVBO(0), m_Shader("../res/Shaders/Cards.shader"),
+		m_Texture("../res/Images/Brand.png") {}
 
 	void Instancing::Init() {
 		m_Shader.Init();
