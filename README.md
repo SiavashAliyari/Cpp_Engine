@@ -30,5 +30,6 @@ This project was inspired by The Cherno’s _Hazel_ engine series. I followed pa
 3. Make sure the `res` folder is Next to `App` after you build for release.
 4. Builds go to the folder `Binaries/[platform]/[Debug/Release]/App` make sure you have `res` next to this
 
-![plot](./docs/EngineS1.png)
 ![plot](./docs/EngineS2.png)
+![plot](./docs/EngineS3.png)
+![plot](./docs/EngineS1.png)
